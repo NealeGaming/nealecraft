@@ -1,0 +1,38 @@
+itemGroup.Nealecraft=Nealecraft
+
+tile.CopperOre.name=Copper Ore
+tile.TinOre.name=Tin Ore
+tile.ZincOre.name=Zinc Ore
+tile.NickelOre.name=Nickel Ore
+tile.ManganeseOre.name=Manganese Ore
+tile.VanadiumOre.name=Vandium Ore
+tile.TopazOre.name=Topaz Ore
+
+tile.AlabasterOvenIdle.name=Alabaster Oven
+tile.AlabasterOvenActive.name=Alabaster Oven
+
+tile.CopperBlock.name=Block of Copper
+
+item.CopperIngot.name=Copper Ingot
+item.TinIngot.name=Tin Ingot
+item.ZincIngot.name=Zinc Ingot
+item.NickelIngot.name=Nickel Ingot
+item.ManganeseIngot.name=Manganese Ingot
+
+item.TinCog.name=Tin Cog
+item.IronWasher.name=Iron Washer
+item.IronDisc.name=Iron Disc
+item.IronHammer.name=Iron Hammer
+item.IronPunch.name=Iron Punch
+
+item.TreePitch.name=Tree Pitch
+
+item.Staff.name=Neale's Staff
+
+item.Topaz.name=Topaz
+
+item.TopazSword.name=Topaz Sword
+item.TopazPickaxe.name=Topaz Pickaxe
+item.TopazAxe.name=Topaz Axe
+item.TopazHoe.name=Topaz Hoe
+item.TopazShovel.name=Topaz Shovel
