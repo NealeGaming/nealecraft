@@ -11,6 +11,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.oredict.OreDictionary;
 import net.nealecraft.mod.blocks.*;
+import net.nealecraft.mod.crafting.RecipeRemover;
+import net.nealecraft.mod.entity.EntityCyclops;
 import net.nealecraft.mod.handler.*;
 import net.nealecraft.mod.items.*;
 import net.nealecraft.mod.proxy.CommonProxy;
@@ -210,8 +212,14 @@ public class Nealecraft {
 		GameRegistry.registerTileEntity(TileEntityAlabasterOven.class, "AlabasterOven");
 		
 		//Recipes
+		RecipeRemover.removeCraftingRecipe();
+		RecipeRemover.removeFurnaceRecipe();
+		
 		GameRegistry.addRecipe(new ItemStack(blockCopperBlock), new Object[]{"CCC", "CCC", "CCC", 'C', itemCopperIngot});
 		GameRegistry.addRecipe(new ItemStack(itemTinCog, 4), new Object[]{" X ", "XFX", " X ", 'X', itemTinIngot, 'F', Items.flint});
+		GameRegistry.addRecipe(new ItemStack(Items.book), new Object[]{"XXX", "YYY", "XXX", 'X', Items.leather, 'Y', Items.paper});
+		GameRegistry.addRecipe(new ItemStack(Blocks.furnace), new Object[]{"XXX", "X X", "XXX", 'X', Blocks.stone});
+		GameRegistry.addRecipe(new ItemStack(Items.stick, 2), new Object[]{"X", "X", "X", 'X', Blocks.planks});
 		
 		GameRegistry.addShapelessRecipe(new ItemStack(oreCopperOre), new Object[]{itemCopperIngot, Blocks.cobblestone});
 		
@@ -228,7 +236,8 @@ public class Nealecraft {
 		
 		GameRegistry.registerFuelHandler(new FuelHandler());
 		
-
+		//Entities
+		EntityHandler.registerEntities(EntityCyclops.class, "Cyclops");
 	}
 	
 	@EventHandler
