@@ -61,7 +61,7 @@ public class TileEntityAlabasterOven extends TileEntity implements ISidedInvento
 	public ItemStack getStackInSlot(int var1) {
 		return this.slots[var1];
 	}
-
+	
 	@Override
 	public ItemStack decrStackSize(int var1, int var2) {
 		if(this.slots[var1] != null){
@@ -77,10 +77,14 @@ public class TileEntityAlabasterOven extends TileEntity implements ISidedInvento
 				if(this.slots[var1].stackSize == 0) {
 					this.slots[var1] = null;
 				}
+				
+				return itemstack;
 			}
+		}else{
+			return null;
 		}
-		return null;
 	}
+	
 
 	@Override
 	public ItemStack getStackInSlotOnClosing(int i) {

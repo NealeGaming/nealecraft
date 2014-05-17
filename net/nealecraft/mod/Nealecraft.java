@@ -7,9 +7,13 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
+import net.minecraft.item.ItemArmor.ArmorMaterial;
+import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.oredict.OreDictionary;
+import net.nealecraft.mod.armor.TopazArmor;
 import net.nealecraft.mod.blocks.*;
 import net.nealecraft.mod.crafting.RecipeRemover;
 import net.nealecraft.mod.entity.EntityCyclops;
@@ -43,6 +47,7 @@ public class Nealecraft {
 	public static CreativeTabs nealecraftTab;
 	
 	public static ToolMaterial TopazMaterial = EnumHelper.addToolMaterial("TopazMaterial", 2, 750, 6.0F, 2.0F, 10);
+	public static ArmorMaterial TopazArmorMaterial = EnumHelper.addArmorMaterial("TopazArmorMaterial", 24, new int[] {3, 7, 5, 3}, 10);
 	
 	@Instance(modid)
 	public static Nealecraft instance;
@@ -72,6 +77,14 @@ public class Nealecraft {
 	public static Block oreVanadiumOre;
 	public static Block oreTopazOre;
 	
+	public static Block oreNetherCopperOre;
+	public static Block oreNetherTinOre;
+	public static Block oreNetherZincOre;
+	public static Block oreNetherNickelOre;
+	public static Block oreNetherManganeseOre;
+	public static Block oreNetherVanadiumOre;
+	public static Block oreNetherTopazOre;
+	
 	public static Block blockCopperBlock;
 	
 	public static Block blockObsidianTable;
@@ -84,10 +97,26 @@ public class Nealecraft {
 	public static Item itemTopazHoe;
 	public static Item itemTopazPickaxe;
 	
+	public static int armorTopazHelmID;
+	public static int armorTopazChestID;
+	public static int armorTopazLegsID;
+	public static int armorTopazBootsID;
+	
+	public static Item armorTopazHelm;
+	public static Item armorTopazChest;
+	public static Item armorTopazLegs;
+	public static Item armorTopazBoots;
+	
+	public static Item foodHotDog;
+	public static Item foodBBQRibs;
+		
 	//Machines
 	public static Block blockAlabasterOvenIdle;
 	public static Block blockAlabasterOvenActive;
 	public static final int guiIDAlabasterOven = 0;
+	
+	public static Block blockWorkSurface;
+	public static final int guiIDWorkSurface = 1;
 	
 	@SidedProxy(clientSide = "net.nealecraft.mod.proxy.ClientProxy", serverSide = "net.nealecraft.mod.proxy.CommonProxy")
 	public static CommonProxy nealeProxy;
@@ -112,23 +141,38 @@ public class Nealecraft {
 		itemManganeseIngot = new NCItems().setUnlocalizedName("ManganeseIngot");
 		itemVanadiumIngot = new NCItems().setUnlocalizedName("VanadiumIngot");
 		
+		//Item Parts
 		itemTinCog = new NCItems().setUnlocalizedName("TinCog");
 		itemIronWasher = new NCItems().setUnlocalizedName("IronWasher");
 		itemIronDisc = new NCItems().setUnlocalizedName("IronDisc");
 		itemIronHammer = new IronHammer().setUnlocalizedName("IronHammer");
 		itemIronPunch = new IronPunch().setUnlocalizedName("IronPunch");
 		
+		//Custom Fuel and Tree Drop
 		itemTreePitch = new NCItems().setUnlocalizedName("TreePitch");
 		
+		//5x5 Item
 		itemStaff = new NCItems().setUnlocalizedName("Staff");
 		
+		//Gems
 		itemTopaz = new NCItems().setUnlocalizedName("Topaz");
 		
+		//Food
+		foodHotDog = new ItemFood(6, 0.6F, true).setUnlocalizedName("HotDog").setCreativeTab(nealecraftTab).setTextureName(Nealecraft.modid + ":HotDog");
+		foodBBQRibs = new FoodBBQRibs(10, 1.0F, true).setUnlocalizedName("BBQRibs");
+				
+		//Tools and Weapons
 		itemTopazSword = new TopazSword(TopazMaterial).setUnlocalizedName("TopazSword");
 		itemTopazAxe = new TopazAxe(TopazMaterial).setUnlocalizedName("TopazAxe");
 		itemTopazShovel = new TopazShovel(TopazMaterial).setUnlocalizedName("TopazShovel");
 		itemTopazHoe = new TopazHoe(TopazMaterial).setUnlocalizedName("TopazHoe");
 		itemTopazPickaxe = new TopazPickaxe(TopazMaterial).setUnlocalizedName("TopazPickaxe");
+		
+		//Armor
+		armorTopazHelm = new TopazArmor(TopazArmorMaterial, armorTopazHelmID, 0).setUnlocalizedName("TopazHelm");
+		armorTopazChest = new TopazArmor(TopazArmorMaterial, armorTopazChestID, 1).setUnlocalizedName("TopazChest");
+		armorTopazLegs = new TopazArmor(TopazArmorMaterial, armorTopazLegsID, 2).setUnlocalizedName("TopazLegs");
+		armorTopazBoots = new TopazArmor(TopazArmorMaterial, armorTopazBootsID, 3).setUnlocalizedName("TopazBoots");
 		
 		//Ores
 		oreCopperOre = new OreBlock(Material.rock).setBlockName("CopperOre");
@@ -139,16 +183,24 @@ public class Nealecraft {
 		oreVanadiumOre = new OreBlock(Material.rock).setBlockName("VanadiumOre");
 		oreTopazOre = new OreBlock(Material.rock).setBlockName("TopazOre");
 		
+		oreNetherCopperOre = new OreBlock(Material.rock).setBlockName("NetherCopperOre");
+		oreNetherTinOre = new OreBlock(Material.rock).setBlockName("NetherTinOre");
+		oreNetherZincOre = new OreBlock(Material.rock).setBlockName("NetherZincOre");
+		oreNetherNickelOre = new OreBlock(Material.rock).setBlockName("NetherNickelOre");
+		oreNetherManganeseOre = new OreBlock(Material.rock).setBlockName("NetherManganeseOre");
+		oreNetherVanadiumOre = new OreBlock(Material.rock).setBlockName("NetherVanadiumOre");
+		oreNetherTopazOre = new OreBlock(Material.rock).setBlockName("NetherTopazOre");
+		
 		//Blocks
 		blockCopperBlock = new CopperBlock(Material.iron).setBlockName("CopperBlock");
-		
 		blockObsidianTable = new ObsidianBlock(Material.rock).setBlockName("ObsidianTable");
 		
 		//Machines
 		blockAlabasterOvenIdle = new AlabasterOven(false).setBlockName("AlabasterOvenIdle").setCreativeTab(nealecraftTab).setHardness(3.5F);
 		blockAlabasterOvenActive = new AlabasterOven(true).setBlockName("AlabasterOvenActive").setLightLevel(0.625F).setHardness(3.5F);
 		
-		
+		//Crafting Tables
+		blockWorkSurface = new WorkSurface().setBlockName("WorkSurface");
 
 		//Registers
 		//Items		
@@ -171,11 +223,20 @@ public class Nealecraft {
 		
 		GameRegistry.registerItem(itemTopaz, "Topaz");
 		
+		GameRegistry.registerItem(foodHotDog, "HotDog");
+		GameRegistry.registerItem(foodBBQRibs, "BBQRibs");
+		
 		GameRegistry.registerItem(itemTopazAxe, "TopazAxe");
 		GameRegistry.registerItem(itemTopazSword, "TopazSword");
 		GameRegistry.registerItem(itemTopazShovel, "TopazShovel");
 		GameRegistry.registerItem(itemTopazHoe, "TopazHoe");
 		GameRegistry.registerItem(itemTopazPickaxe, "TopazPickaxe");
+		
+		//Armor
+		GameRegistry.registerItem(armorTopazHelm, "TopazHelm");
+		GameRegistry.registerItem(armorTopazChest, "TopazChest");
+		GameRegistry.registerItem(armorTopazLegs, "TopazLegs");
+		GameRegistry.registerItem(armorTopazBoots, "TopazBoots");
 		
 		//Ores
 		GameRegistry.registerBlock(oreCopperOre, "CopperOre");
@@ -186,14 +247,24 @@ public class Nealecraft {
 		GameRegistry.registerBlock(oreVanadiumOre, "VanadiumOre");
 		GameRegistry.registerBlock(oreTopazOre, "TopazOre");
 		
+		//Nether Ores
+		GameRegistry.registerBlock(oreNetherCopperOre, "NetherCopperOre");
+		GameRegistry.registerBlock(oreNetherTinOre, "NetherTinOre");
+		GameRegistry.registerBlock(oreNetherZincOre, "NetherZincOre");
+		GameRegistry.registerBlock(oreNetherNickelOre, "NetherNickelOre");
+		GameRegistry.registerBlock(oreNetherManganeseOre, "NetherManganeseOre");
+		GameRegistry.registerBlock(oreNetherVanadiumOre, "NetherVanadiumOre");
+		GameRegistry.registerBlock(oreNetherTopazOre, "NetherTopazOre");
+		
 		//Blocks
 		GameRegistry.registerBlock(blockCopperBlock, "CopperBlock");
-		
 		GameRegistry.registerBlock(blockObsidianTable, "ObsidianTable");
 		
 		//Machines
 		GameRegistry.registerBlock(blockAlabasterOvenIdle, "AlabasterOvenIdle");
 		GameRegistry.registerBlock(blockAlabasterOvenActive, "AlabasterOvenActive");
+		
+		GameRegistry.registerBlock(blockWorkSurface, "WorkSurface");
 		
 		//Spawn
 		GameRegistry.registerWorldGenerator(eventWorldGen, 0);
@@ -221,6 +292,11 @@ public class Nealecraft {
 		GameRegistry.addRecipe(new ItemStack(Blocks.furnace), new Object[]{"XXX", "X X", "XXX", 'X', Blocks.stone});
 		GameRegistry.addRecipe(new ItemStack(Items.stick, 2), new Object[]{"X", "X", "X", 'X', Blocks.planks});
 		
+		GameRegistry.addRecipe(new ItemStack(armorTopazHelm), new Object[]{"XXX", "X X", 'X', itemTopaz});
+		GameRegistry.addRecipe(new ItemStack(armorTopazChest), new Object[]{"X X", "XXX", "XXX", 'X', itemTopaz});
+		GameRegistry.addRecipe(new ItemStack(armorTopazLegs), new Object[]{"XXX", "X X", "X X", 'X', itemTopaz});
+		GameRegistry.addRecipe(new ItemStack(armorTopazBoots), new Object[]{"X X", "X X", 'X', itemTopaz});
+		
 		GameRegistry.addShapelessRecipe(new ItemStack(oreCopperOre), new Object[]{itemCopperIngot, Blocks.cobblestone});
 		
 		GameRegistry.addRecipe(new ItemStack(itemIronDisc, 4), new Object[]{"IH", 'I', Items.iron_ingot, 'H', new ItemStack(itemIronHammer, 1, OreDictionary.WILDCARD_VALUE)});
@@ -234,10 +310,12 @@ public class Nealecraft {
 		GameRegistry.addSmelting(oreManganeseOre, new ItemStack(itemManganeseIngot), 0);
 		GameRegistry.addSmelting(oreVanadiumOre, new ItemStack(itemVanadiumIngot), 0);
 		
+		GameRegistry.addSmelting(oreNetherCopperOre, new ItemStack(oreCopperOre, 2), 0);
+		
 		GameRegistry.registerFuelHandler(new FuelHandler());
 		
 		//Entities
-		EntityHandler.registerEntities(EntityCyclops.class, "Cyclops");
+		EntityHandler.registerMonsters(EntityCyclops.class, "Cyclops");
 	}
 	
 	@EventHandler

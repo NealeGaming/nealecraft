@@ -5,7 +5,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.nealecraft.mod.Nealecraft;
 import net.nealecraft.mod.container.ContainerAlabasterOven;
+import net.nealecraft.mod.container.ContainerWorkSurface;
 import net.nealecraft.mod.gui.GuiAlabasterOven;
+import net.nealecraft.mod.gui.GuiWorkSurface;
 import net.nealecraft.mod.tileentity.TileEntityAlabasterOven;
 import cpw.mods.fml.common.network.IGuiHandler;
 
@@ -13,7 +15,7 @@ public class GuiHandler implements IGuiHandler {
 
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world,	int x, int y, int z) {
-TileEntity entity = world.getTileEntity(x, y, z);
+		TileEntity entity = world.getTileEntity(x, y, z);
 		
 		if(entity != null) {
 			switch(ID) {
@@ -24,6 +26,11 @@ TileEntity entity = world.getTileEntity(x, y, z);
 				return null;
 			}
 		}
+		
+		if(ID == Nealecraft.guiIDWorkSurface) {
+			return ID == Nealecraft.guiIDWorkSurface && world.getBlock(x, y, z) == Nealecraft.blockWorkSurface ? new ContainerWorkSurface(player.inventory, world, x, y, z) : null;
+		}
+		
 		return null;
 	}
 
@@ -40,6 +47,11 @@ TileEntity entity = world.getTileEntity(x, y, z);
 				return null;
 			}
 		}
+		
+		if(ID == Nealecraft.guiIDWorkSurface) {
+			return ID == Nealecraft.guiIDWorkSurface && world.getBlock(x, y, z) == Nealecraft.blockWorkSurface ? new GuiWorkSurface(player.inventory, world, x, y, z) : null;
+		}
+		
 		return null;
 	}
 

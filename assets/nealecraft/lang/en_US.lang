@@ -10,6 +10,7 @@ tile.TopazOre.name=Topaz Ore
 
 tile.AlabasterOvenIdle.name=Alabaster Oven
 tile.AlabasterOvenActive.name=Alabaster Oven
+tile.WorkSurface.name=Work Surface
 
 tile.CopperBlock.name=Block of Copper
 
@@ -36,3 +37,11 @@ item.TopazPickaxe.name=Topaz Pickaxe
 item.TopazAxe.name=Topaz Axe
 item.TopazHoe.name=Topaz Hoe
 item.TopazShovel.name=Topaz Shovel
+
+tile.NetherCopperOre.name=Nether Copper Ore
+tile.NetherTinOre.name=Nether Tin Ore
+tile.NetherZincOre.name=Nether Zinc Ore
+tile.NetherNickelOre.name=Nether Nickel Ore
+tile.NetherManganeseOre.name=Nether Manganese Ore
+tile.NetherVanadiumOre.name=Nether Vandium Ore
+tile.NetherTopazOre.name=Nether Topaz Ore
