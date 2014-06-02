@@ -1,7 +1,11 @@
 package net.nealecraft.mod;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDynamicLiquid;
+import net.minecraft.block.BlockStaticLiquid;
+import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.material.MaterialLiquid;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -9,9 +13,15 @@ import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemFood;
+import net.minecraft.item.ItemSeeds;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
+import net.minecraft.util.WeightedRandomChestContent;
+import net.minecraftforge.common.ChestGenHooks;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.oredict.OreDictionary;
 import net.nealecraft.mod.armor.TopazArmor;
 import net.nealecraft.mod.blocks.*;
@@ -86,8 +96,11 @@ public class Nealecraft {
 	public static Block oreNetherTopazOre;
 	
 	public static Block blockCopperBlock;
-	
+	public static Block blockMinerals;
 	public static Block blockObsidianTable;
+	
+	public static Block blockPurpleLampOn;
+	public static Block blockPurpleLampOff;
 	
 	public static Item itemTopaz;
 
@@ -109,11 +122,32 @@ public class Nealecraft {
 	
 	public static Item foodHotDog;
 	public static Item foodBBQRibs;
+	
+	//Crops
+	public static Item cropStrawberrySeeds;
+	public static Item cropStrawberry;
+	public static Block cropStrawberryPlant;
+	
+	public static Item cropBloodMelonSeeds;
+	public static Item cropBloodMelonSlice;
+	public static Block cropBloodMelonStem;
+	public static Block cropBloodMelon;
+	
+	//FLuids
+	public static Block fluidSludgeStill;
+	public static Block fluidSludgeFlowing;
+	public static Fluid fluidSludge;
+	
+	public static MaterialLiquid materialSludge;
 		
 	//Machines
 	public static Block blockAlabasterOvenIdle;
 	public static Block blockAlabasterOvenActive;
 	public static final int guiIDAlabasterOven = 0;
+	
+	public static Block blockIngotMasherIdle;
+	public static Block blockIngotMasherActive;
+	public static final int guiIDIngotMasher = 1;
 	
 	public static Block blockWorkSurface;
 	public static final int guiIDWorkSurface = 1;
@@ -160,7 +194,17 @@ public class Nealecraft {
 		//Food
 		foodHotDog = new ItemFood(6, 0.6F, true).setUnlocalizedName("HotDog").setCreativeTab(nealecraftTab).setTextureName(Nealecraft.modid + ":HotDog");
 		foodBBQRibs = new FoodBBQRibs(10, 1.0F, true).setUnlocalizedName("BBQRibs");
-				
+		
+		//Crops
+		cropStrawberryPlant = new NCCrop().setBlockName("StrawberryPlant");
+		cropStrawberrySeeds = new ItemSeeds(cropStrawberryPlant, Blocks.farmland).setUnlocalizedName("StrawberrySeeds").setTextureName(modid + ":StrawberrySeeds").setCreativeTab(nealecraftTab);
+		cropStrawberry = new ItemFood(4, 0.5F, false).setUnlocalizedName("Strawberry").setTextureName(modid + ":Strawberry").setCreativeTab(nealecraftTab);
+		
+		cropBloodMelon = new BloodMelon().setBlockName("BloodMelon").setBlockTextureName(modid + ":BloodMelon");
+		cropBloodMelonStem = new BlockNCStem(cropBloodMelon).setBlockName("BloodMelonStem").setBlockTextureName(modid + ":BloodMelon");
+		cropBloodMelonSeeds = new ItemSeeds(cropBloodMelonStem, Blocks.farmland).setUnlocalizedName("BloodMelonSeeds").setTextureName(modid + ":BloodMelonSeeds").setCreativeTab(nealecraftTab);
+		cropBloodMelonSlice = new ItemFood(4, 0.5F, false).setUnlocalizedName("BloodMelonSlice").setTextureName(modid + ":BloodMelonSlice").setCreativeTab(nealecraftTab);
+		
 		//Tools and Weapons
 		itemTopazSword = new TopazSword(TopazMaterial).setUnlocalizedName("TopazSword");
 		itemTopazAxe = new TopazAxe(TopazMaterial).setUnlocalizedName("TopazAxe");
@@ -193,11 +237,26 @@ public class Nealecraft {
 		
 		//Blocks
 		blockCopperBlock = new CopperBlock(Material.iron).setBlockName("CopperBlock");
+		blockMinerals = new MineralBlocks().setBlockName("Minerals");
 		blockObsidianTable = new ObsidianBlock(Material.rock).setBlockName("ObsidianTable");
+		
+		//Lamps
+		blockPurpleLampOn = new PurpleLamp(true).setBlockName("PurpleLampOn");
+		blockPurpleLampOff = new PurpleLamp(false).setBlockName("PurpleLampOff").setCreativeTab(nealecraftTab);
+		
+		//Fluids
+		materialSludge = new MaterialLiquid(MapColor.greenColor);
+		fluidSludgeStill = new NCBlockStaticLiquid(Nealecraft.materialSludge).setBlockName("SludgeStill");
+		fluidSludgeFlowing = new NCBlockDynamicLiquid(Nealecraft.materialSludge).setBlockName("SludgeFlowing");
+		
+		
 		
 		//Machines
 		blockAlabasterOvenIdle = new AlabasterOven(false).setBlockName("AlabasterOvenIdle").setCreativeTab(nealecraftTab).setHardness(3.5F);
 		blockAlabasterOvenActive = new AlabasterOven(true).setBlockName("AlabasterOvenActive").setLightLevel(0.625F).setHardness(3.5F);
+		
+		blockIngotMasherIdle = new IngotMasher(false).setBlockName("IngotMasherIdle").setCreativeTab(nealecraftTab).setHardness(3.5F);
+		blockIngotMasherActive = new IngotMasher(true).setBlockName("IngotMasherActive").setHardness(3.5F);
 		
 		//Crafting Tables
 		blockWorkSurface = new WorkSurface().setBlockName("WorkSurface");
@@ -225,6 +284,20 @@ public class Nealecraft {
 		
 		GameRegistry.registerItem(foodHotDog, "HotDog");
 		GameRegistry.registerItem(foodBBQRibs, "BBQRibs");
+		
+		GameRegistry.registerItem(cropStrawberrySeeds, "StrawberrySeeds");
+		GameRegistry.registerItem(cropStrawberry, "Strawberry");
+		GameRegistry.registerBlock(cropStrawberryPlant, "StrawberryPlant");
+		
+		GameRegistry.registerItem(cropBloodMelonSeeds, "BloodMelonSeeds");
+		GameRegistry.registerItem(cropBloodMelonSlice, "BloodMelonSlice");
+		GameRegistry.registerBlock(cropBloodMelon, "BloodMelon");
+		GameRegistry.registerBlock(cropBloodMelonStem, "BloodMelonStem");
+		
+		MinecraftForge.addGrassSeed(new ItemStack(cropStrawberrySeeds), 10);
+		MinecraftForge.addGrassSeed(new ItemStack(cropBloodMelonSeeds), 10);
+		
+		ChestGenHooks.getInfo(ChestGenHooks.VILLAGE_BLACKSMITH).addItem(new WeightedRandomChestContent(new ItemStack(armorTopazChest),1,1,065));
 		
 		GameRegistry.registerItem(itemTopazAxe, "TopazAxe");
 		GameRegistry.registerItem(itemTopazSword, "TopazSword");
@@ -258,11 +331,25 @@ public class Nealecraft {
 		
 		//Blocks
 		GameRegistry.registerBlock(blockCopperBlock, "CopperBlock");
+		GameRegistry.registerBlock(blockMinerals, ItemMineralBlocks.class, blockMinerals.getUnlocalizedName().substring(5));
 		GameRegistry.registerBlock(blockObsidianTable, "ObsidianTable");
+		
+		//Lamps
+		GameRegistry.registerBlock(blockPurpleLampOn, "PurpleLampOn");
+		GameRegistry.registerBlock(blockPurpleLampOff, "PurpleLampOff");
+		
+		//Fluids
+		
+		GameRegistry.registerBlock(fluidSludgeStill, "SludgeStill");
+		GameRegistry.registerBlock(fluidSludgeFlowing, "SludgeFlowing");
+		//FluidRegistry.registerFluid(fluidSludgeStill);
 		
 		//Machines
 		GameRegistry.registerBlock(blockAlabasterOvenIdle, "AlabasterOvenIdle");
 		GameRegistry.registerBlock(blockAlabasterOvenActive, "AlabasterOvenActive");
+		
+		GameRegistry.registerBlock(blockIngotMasherIdle, "IngotMasherIdle");
+		GameRegistry.registerBlock(blockIngotMasherActive, "IngotMasherActive");
 		
 		GameRegistry.registerBlock(blockWorkSurface, "WorkSurface");
 		
@@ -296,6 +383,8 @@ public class Nealecraft {
 		GameRegistry.addRecipe(new ItemStack(armorTopazChest), new Object[]{"X X", "XXX", "XXX", 'X', itemTopaz});
 		GameRegistry.addRecipe(new ItemStack(armorTopazLegs), new Object[]{"XXX", "X X", "X X", 'X', itemTopaz});
 		GameRegistry.addRecipe(new ItemStack(armorTopazBoots), new Object[]{"X X", "X X", 'X', itemTopaz});
+		
+		GameRegistry.addRecipe(new ItemStack(blockPurpleLampOff), new Object[]{"CXC", "XEX", "CXC", 'C', Blocks.glass, 'X', Items.glowstone_dust, 'E', Items.redstone});
 		
 		GameRegistry.addShapelessRecipe(new ItemStack(oreCopperOre), new Object[]{itemCopperIngot, Blocks.cobblestone});
 		

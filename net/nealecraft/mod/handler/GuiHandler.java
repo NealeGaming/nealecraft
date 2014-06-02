@@ -5,10 +5,13 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.nealecraft.mod.Nealecraft;
 import net.nealecraft.mod.container.ContainerAlabasterOven;
+import net.nealecraft.mod.container.ContainerIngotMasher;
 import net.nealecraft.mod.container.ContainerWorkSurface;
 import net.nealecraft.mod.gui.GuiAlabasterOven;
+import net.nealecraft.mod.gui.GuiIngotMasher;
 import net.nealecraft.mod.gui.GuiWorkSurface;
 import net.nealecraft.mod.tileentity.TileEntityAlabasterOven;
+import net.nealecraft.mod.tileentity.TileEntityIngotMasher;
 import cpw.mods.fml.common.network.IGuiHandler;
 
 public class GuiHandler implements IGuiHandler {
@@ -22,6 +25,12 @@ public class GuiHandler implements IGuiHandler {
 			case Nealecraft.guiIDAlabasterOven:
 				if (entity instanceof TileEntityAlabasterOven) {
 					return new ContainerAlabasterOven(player.inventory, (TileEntityAlabasterOven) entity);
+				}
+				return null;
+				
+			case Nealecraft.guiIDIngotMasher:
+				if (entity instanceof TileEntityIngotMasher) {
+					return new ContainerIngotMasher(player.inventory, (TileEntityIngotMasher) entity);
 				}
 				return null;
 			}
@@ -43,6 +52,12 @@ public class GuiHandler implements IGuiHandler {
 			case Nealecraft.guiIDAlabasterOven:
 				if (entity instanceof TileEntityAlabasterOven) {
 					return new GuiAlabasterOven(player.inventory, (TileEntityAlabasterOven) entity);
+				}
+				return null;
+				
+			case Nealecraft.guiIDIngotMasher:
+				if (entity instanceof TileEntityIngotMasher) {
+					return new GuiIngotMasher(player.inventory, (TileEntityIngotMasher) entity);
 				}
 				return null;
 			}

@@ -10,9 +10,18 @@ tile.TopazOre.name=Topaz Ore
 
 tile.AlabasterOvenIdle.name=Alabaster Oven
 tile.AlabasterOvenActive.name=Alabaster Oven
+
+tile.IngotMasherIdle.name=Ingot Masher
+tile.IngotMasherActive.name=Ingot Masher
+
 tile.WorkSurface.name=Work Surface
 
 tile.CopperBlock.name=Block of Copper
+
+tile.Minerals.limestone.name=Limestone
+tile.Minerals.granite.name=Granite
+tile.Minerals.shale.name=Shale
+tile.Minerals.andesite.name=Andesite
 
 item.CopperIngot.name=Copper Ingot
 item.TinIngot.name=Tin Ingot
@@ -31,6 +40,15 @@ item.TreePitch.name=Tree Pitch
 item.Staff.name=Neale's Staff
 
 item.Topaz.name=Topaz
+
+tile.StrawberryPlant.name=Strawberry Plant
+item.StrawberrySeeds.name=Strawberry Seeds
+item.Strawberry.name=Strawberry
+
+tile.BloodMelon.name=Blood Melon
+tile.BloodMelonStem.name=Blood Melon Stem
+item.BloodMelonSlice.name=Blood Melon Slice
+item.BloodMelonSeeds.name=Blood Melon Seeds
 
 item.TopazSword.name=Topaz Sword
 item.TopazPickaxe.name=Topaz Pickaxe
