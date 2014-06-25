@@ -2,6 +2,7 @@ package net.nealecraft.mod.blocks;
 
 import java.util.Random;
 
+import cpw.mods.fml.common.network.internal.FMLNetworkHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -9,6 +10,7 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
@@ -102,10 +104,44 @@ public class IngotMasher extends BlockContainer {
     		//((TileEntityIngotMasher)world.getTileEntity(x, y, z)).setCustomName(itemstack.getDisplayName());
     	}
     }
-
+    
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ) {
+    	if (world.isRemote) {
+    		return true;
+    	}else if (!player.isSneaking()) {
+    		TileEntityIngotMasher entity = (TileEntityIngotMasher) world.getTileEntity(x, y, z);
+    		if (entity != null) {
+    			FMLNetworkHandler.openGui(player, Nealecraft.instance, Nealecraft.guiIDIngotMasher, world, x, y, z);
+    		}
+    		return true;
+    	}else{
+    		return false;
+    	}
+    }
+    
 	@Override
 	public TileEntity createNewTileEntity(World var1, int var2) {
-		return null;
+		return new TileEntityIngotMasher();
 	}
 
+	public static void updateBlockState(boolean isMashing, World world, int xCoord, int yCoord, int zCoord) {
+		
+		int i = world.getBlockMetadata(xCoord, yCoord, zCoord);
+		TileEntity entity = world.getTileEntity(xCoord, yCoord, zCoord);
+		keepInventory = true;
+		
+		if (isMashing) {
+			world.setBlock(xCoord, yCoord, zCoord, Nealecraft.blockIngotMasherActive);
+		}else{
+			world.setBlock(xCoord, yCoord, zCoord, Nealecraft.blockIngotMasherIdle);
+		}
+		
+		keepInventory = false;
+		world.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, i, 2);
+		
+		if (entity != null) {
+			entity.validate();
+			world.setTileEntity(xCoord, yCoord, zCoord, entity);
+		}
+	}
 }

@@ -79,6 +79,7 @@ public class EntityCyclops extends EntityMob {
         this.playSound("mob.zombie.step", 0.15F, 1.0F);
     }
 	
+    /*
 	protected void applyEntityAttributes()
     {
         super.applyEntityAttributes();
@@ -86,6 +87,20 @@ public class EntityCyclops extends EntityMob {
         this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(0.23000000417232513D);
         this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(3.0D);
         this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(20.0D);
+    }
+    */
+    @Override
+    protected void applyEntityAttributes()
+    {
+        
+        super.applyEntityAttributes();
+        this.getAttributeMap().registerAttribute(SharedMonsterAttributes.attackDamage);
+        this.getEntityAttribute(SharedMonsterAttributes.attackDamage).setBaseValue(10.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.followRange).setBaseValue(32.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.knockbackResistance).setBaseValue(0.0D);
+        this.getEntityAttribute(SharedMonsterAttributes.movementSpeed).setBaseValue(10.23000000417232513D);
+        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(60.0D);
+        
     }
 	
 	protected boolean isAIEnabled()

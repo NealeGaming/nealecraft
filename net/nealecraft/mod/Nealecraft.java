@@ -31,6 +31,7 @@ import net.nealecraft.mod.handler.*;
 import net.nealecraft.mod.items.*;
 import net.nealecraft.mod.proxy.CommonProxy;
 import net.nealecraft.mod.tileentity.TileEntityAlabasterOven;
+import net.nealecraft.mod.tileentity.TileEntityIngotMasher;
 import net.nealecraft.mod.worldgen.NealecraftWorldGen;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
@@ -340,8 +341,8 @@ public class Nealecraft {
 		
 		//Fluids
 		
-		GameRegistry.registerBlock(fluidSludgeStill, "SludgeStill");
-		GameRegistry.registerBlock(fluidSludgeFlowing, "SludgeFlowing");
+		//GameRegistry.registerBlock(fluidSludgeStill, "SludgeStill");
+		//GameRegistry.registerBlock(fluidSludgeFlowing, "SludgeFlowing");
 		//FluidRegistry.registerFluid(fluidSludgeStill);
 		
 		//Machines
@@ -368,6 +369,7 @@ public class Nealecraft {
 		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiHandler());
 		
 		GameRegistry.registerTileEntity(TileEntityAlabasterOven.class, "AlabasterOven");
+		GameRegistry.registerTileEntity(TileEntityIngotMasher.class, "IngotMasher");
 		
 		//Recipes
 		RecipeRemover.removeCraftingRecipe();

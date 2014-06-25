@@ -1,5 +1,8 @@
 package net.nealecraft.mod.gui;
 
+import org.lwjgl.opengl.GL11;
+
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -10,14 +13,15 @@ import net.nealecraft.mod.tileentity.TileEntityIngotMasher;
 
 public class GuiIngotMasher extends GuiContainer {
 	
-	private ResourceLocation texture = new ResourceLocation(Nealecraft.modid + ":" + "/textures/gui/IngotMasherGui.png");
-	private TileEntityIngotMasher ingotMasher;
+	public ResourceLocation texture = new ResourceLocation(Nealecraft.modid + ":" + "/textures/gui/IngotMasherGui.png");
+	public TileEntityIngotMasher ingotMasher;
 
 	public GuiIngotMasher(InventoryPlayer invPlayer, TileEntityIngotMasher teIngotMasher) {
 		super(new ContainerIngotMasher(invPlayer, teIngotMasher));
 		ingotMasher = teIngotMasher;
 		
 		this.xSize = 176;
+		this.ySize = 166;
 	}
 	
 	protected void drawGuiContainerForegroundLayer(int i, int j) {
@@ -28,10 +32,20 @@ public class GuiIngotMasher extends GuiContainer {
 	}
 
 	@Override
-	protected void drawGuiContainerBackgroundLayer(float var1, int var2,
-			int var3) {
-		// TODO Auto-generated method stub
-		
-	}
+    protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
+    {
+        GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+        Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
+        drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
+
+        if (ingotMasher.hasPower())
+        {
+            int i1 = ingotMasher.getPowerRemainingScaled(45);
+            drawTexturedModalRect(guiLeft + 8, guiTop + 53 - i1, 176, 62 - i1, 16, i1);
+        }
+
+        int i1 = ingotMasher.getMasherProgressScaled(24);
+        drawTexturedModalRect(guiLeft + 79, guiTop + 34, 176, 0, i1 + 1, 16);
+    }
 
 }
